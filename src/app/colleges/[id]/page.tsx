@@ -1,38 +1,84 @@
+import { prisma } from "@/lib/prisma";
+import {
+  MapPin,
+  Tag,
+  Star,
+  Briefcase,
+  IndianRupee,
+} from "lucide-react";
+
 interface PageProps {
   params: Promise<{
     id: string;
   }>;
 }
 
-async function getCollege(id: string) {
-  const res = await fetch(`http://localhost:3000/api/colleges/${id}`, {
-    cache: "no-store",
-  });
-
-  return res.json();
-}
-
-export default async function CollegePage({ params }: PageProps) {
+export default async function CollegePage({
+  params,
+}: PageProps) {
   const { id } = await params;
 
-  const college = await getCollege(id);
+  const college = await prisma.college.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!college) {
+    return (
+      <div className="max-w-4xl mx-auto p-8">
+        <h1 className="text-3xl font-bold">
+          College Not Found
+        </h1>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-4">{college.name}</h1>
+    <div className="max-w-5xl mx-auto p-8">
+      <div className="bg-white shadow-lg rounded-2xl border p-8">
+        <h1 className="text-4xl font-bold mb-6">
+          {college.name}
+        </h1>
 
-      <div className="space-y-3">
-        <p>📍 {college.city}</p>
+        <div className="grid md:grid-cols-2 gap-4 text-lg">
+          <div className="flex items-center gap-3">
+            <MapPin size={20} />
+            <span>{college.city}</span>
+          </div>
 
-        <p>🏷️ {college.type}</p>
+          <div className="flex items-center gap-3">
+            <Tag size={20} />
+            <span>{college.type}</span>
+          </div>
 
-        <p>⭐ {college.rating}</p>
+          <div className="flex items-center gap-3">
+            <Star size={20} />
+            <span>{college.rating}</span>
+          </div>
 
-        <p>💼 {college.placements}%</p>
+          <div className="flex items-center gap-3">
+            <Briefcase size={20} />
+            <span>{college.placements}% Placement</span>
+          </div>
 
-        <p>💰 ₹{college.fees.toLocaleString()}</p>
+          <div className="flex items-center gap-3">
+            <IndianRupee size={20} />
+            <span>
+              ₹{college.fees.toLocaleString()}
+            </span>
+          </div>
+        </div>
 
-        <p className="mt-6">{college.description}</p>
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold mb-3">
+            About College
+          </h2>
+
+          <p className="text-gray-700 leading-relaxed">
+            {college.description}
+          </p>
+        </div>
       </div>
     </div>
   );

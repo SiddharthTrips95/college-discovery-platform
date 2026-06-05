@@ -1,5 +1,7 @@
 # College Discovery Platform
 
+live at : https://college-discovery-platform-swart.vercel.app
+
 A full-stack web application that helps students discover, compare, and save colleges across India.
 
 ## Features
