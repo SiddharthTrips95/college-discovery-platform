@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import Link from "next/link";
+import Navbar from "../components/Navbar";
 import LogoutButton from "@/components/LogoutButton";
 
 import { Home, GraduationCap, Bookmark, Scale, LogIn } from "lucide-react";
@@ -33,36 +34,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <nav
-          className="flex gap-6 p-4 border-b"
-          style={{ justifyContent: "center" }}
-        >
-          <Link href="/" className="flex items-center gap-2">
-            <Home size={18} />
-            Home
-          </Link>
-
-          <Link href="/colleges" className="flex items-center gap-2">
-            <GraduationCap size={18} />
-            Colleges
-          </Link>
-
-          <Link href="/saved" className="flex items-center gap-2">
-            <Bookmark size={18} />
-            Saved
-          </Link>
-
-          <Link href="/compare" className="flex items-center gap-2">
-            <Scale size={18} />
-            Compare
-          </Link>
-
-          <Link href="/login" className="flex items-center gap-2">
-            <LogIn size={18} />
-            Login
-          </Link>
-          <LogoutButton />
-        </nav>
+        <Navbar />
         {children}
       </body>
     </html>

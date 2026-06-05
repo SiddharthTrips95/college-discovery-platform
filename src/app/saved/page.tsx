@@ -22,27 +22,32 @@ export default function SavedPage() {
 
   useEffect(() => {
     async function fetchSaved() {
-      const token = localStorage.getItem("token");
+      try {
+        const token = localStorage.getItem("token");
 
-      if (!token) {
-        alert("Please login first");
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+
+        const res = await fetch("/api/saved", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await res.json();
+
+        console.log(data);
+
+        if (data.success) {
+          setSavedColleges(data.savedColleges);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const res = await fetch("/api/saved", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        setSavedColleges(data.savedColleges);
-      }
-
-      
     }
 
     fetchSaved();
