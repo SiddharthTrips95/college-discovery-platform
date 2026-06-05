@@ -1,36 +1,213 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# College Discovery Platform
 
-## Getting Started
+A full-stack web application that helps students discover, compare, and save colleges across India.
 
-First, run the development server:
+## Features
+
+### Authentication
+
+* User Signup
+* User Login
+* JWT-based Authentication
+* Protected Routes
+
+### College Discovery
+
+* Browse colleges
+* Search colleges by name
+* Filter colleges by type
+* Pagination support
+
+### College Details
+
+* Detailed information page for each college
+* Fees, rating, placements, city, and type information
+
+### Saved Colleges
+
+* Save favorite colleges
+* View saved colleges
+* Duplicate save prevention
+
+### College Comparison
+
+* Compare two colleges side-by-side
+* Compare:
+
+  * Rating
+  * Fees
+  * Placements
+  * City
+  * Type
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* Next.js 16
+* React 19
+* TypeScript
+* Tailwind CSS
+* Lucide React Icons
+
+### Backend
+
+* Next.js API Routes
+* Prisma ORM
+* JWT Authentication
+* bcrypt
+
+### Database
+
+* PostgreSQL
+* Neon Database
+
+---
+
+## Database Schema
+
+### User
+
+* id
+* name
+* email
+* password
+
+### College
+
+* id
+* name
+* city
+* type
+* fees
+* rating
+* placements
+* description
+
+### SavedCollege
+
+* id
+* userId
+* collegeId
+
+---
+
+## API Endpoints
+
+### Authentication
+
+#### Signup
+
+POST `/api/auth/signup`
+
+#### Login
+
+POST `/api/auth/login`
+
+---
+
+### Colleges
+
+#### Get Colleges
+
+GET `/api/colleges`
+
+Query Parameters:
+
+* search
+* city
+* type
+* page
+
+Example:
+
+```bash
+/api/colleges?type=IIT&page=1
+```
+
+#### Get College Details
+
+GET `/api/colleges/[id]`
+
+---
+
+### Saved Colleges
+
+#### Save College
+
+POST `/api/saved`
+
+#### Get Saved Colleges
+
+GET `/api/saved`
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone <repository-url>
+cd college-discovery-platform
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+Create a `.env` file:
+
+```env
+DATABASE_URL=your_neon_database_url
+JWT_SECRET=your_secret_key
+```
+
+### Run Migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### Seed Database
+
+```bash
+npx prisma db seed
+```
+
+### Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Application will be available at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Future Improvements
 
-To learn more about Next.js, take a look at the following resources:
+* College recommendations
+* Advanced filters
+* User profile page
+* College reviews and ratings
+* Admin dashboard
+* Email verification
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Author
 
-## Deploy on Vercel
+Siddharth Tripathi
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built as part of a Full Stack Developer Internship Assessment.
